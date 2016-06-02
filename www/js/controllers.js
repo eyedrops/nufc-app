@@ -3,12 +3,16 @@ angular.module('nufc.controllers', [])
 .controller('HomeCtrl', function($scope, $http) {
 
   YUI().use('yql', function(Y){
-    var query = 'select * from rss(0,10) where url = "www.chroniclelive.co.uk/all-about/newcastle-united-fc?service=rss"'
-    var q = Y.YQL(query, function(data){
+    var urls = [
+      '"www.chroniclelive.co.uk/all-about/newcastle-united-fc?service=rss",' +
+      '"http://talksport.com/rss/football/newcastle-united/feed"'
+    ];
 
-      console.log(JSON.stringify(data.query.results.item));
-      //r now contains the result of the YQL Query as a JSON
-      $scope.feed = data.query.results.item // get feed as array of entries
+    var query = 'select * from rss where url in(' + urls + ')';
+
+    var getJSON = Y.YQL(query, function(data){
+      console.log(data);
+      $scope.feed = data.query.results.item
     })
   })
 })

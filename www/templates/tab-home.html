@@ -1,9 +1,10 @@
 <ion-view view-title="Home">
   <ion-content class="padding">
     <ion-list>
-      <ion-item ng-repeat="item in feed">
+      <div class='card' ng-repeat="item in feed | orderBy : 'pubDate'">
           {{item.title}}
-      </ion-item>
+          {{item.pubDate}}
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>
